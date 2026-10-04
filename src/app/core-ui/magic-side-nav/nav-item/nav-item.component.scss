@@ -402,5 +402,16 @@ button[mat-menu-item].nav-link.active {
     transition:
       opacity var(--transition-duration-xs, 0.09s) linear,
       visibility 0s linear var(--transition-duration-xs, 0.09s);
+
+    // Touch layouts flow the counter inline (see the touch block above): there
+    // `padding: 0 var(--s)` and `flex-shrink: 0` keep a *static* flex item's
+    // full width reserved in the button even while it is faded out. Inside the
+    // 56px rail that leaves the icon less room than the button's own padding
+    // plus the 24px icon needs, and the button's `overflow: hidden` then clips
+    // it — so touch keeps master's hard hide. Touch has no hover for the
+    // counter to get out of the way of either.
+    :host-context(.isTouchPrimary) & {
+      display: none;
+    }
   }
 }
